@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+<h1 class ="title">Witaj <span th:text="${username}"></span></h1>
+<button onclick="customClick()">Kliknij</button>
+<h2>Lista produktów</h2>
+<div>
+    <div th:each="product : ${products}">
+        <h3 th:text="${product.name}"></h3>
+        <p th:text="${product.price} + zł"></p>
+        <p th:text="${product.manufacturer}"></p>
+        <h3 th:if="${product.onSale}"> PROMOCJA </h3>
+        <h3 th:unless="${product.onSale}">BRAK PROMOCJI</h3>
+    </div>
+</div>
+
+<script src="/js/script.js"></script>
+</body>
+</html>
