@@ -21,17 +21,17 @@ public class UserController {
 
 
     @PostMapping("/create-user")
-    public ResponseEntity<Map<String, String>> createUser(@Valid @RequestBody UserModel user){
-         userService.create(user);
+    public ResponseEntity<Map<String, String>> createUser(@Valid @RequestBody UserModel user) {
+        userService.create(user);
 
-         Map<String, String> response = new HashMap<>();
-         response.put("message", "User created successfully");
-         response.put("code", "201");
-         return ResponseEntity.ok(response);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User created successfully");
+        response.put("code", "201");
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<Map<String, Object>> getUsers(){
+    public ResponseEntity<Map<String, Object>> getUsers() {
         List<UserModel> data = userService.getAll();
 
         Map<String, Object> response = new HashMap<>();
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete-user")
-    public ResponseEntity<Map<String, String>> deleteUser(@RequestParam String id){
+    public ResponseEntity<Map<String, String>> deleteUser(@RequestParam String id) {
         userService.delete(id);
 
         Map<String, String> response = new HashMap<>();
@@ -52,13 +52,14 @@ public class UserController {
 
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/get-user/{id}")
-    public ResponseEntity<Map<String,Object>> getUserById(@PathVariable String id) {
+    public ResponseEntity<Map<String, Object>> getUserById(@PathVariable String id) {
         UserModel user = userService.getUserById(id);
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "User founded");
-        response.put("code","200");
+        response.put("code", "200");
         response.put("data", user);
 
         return ResponseEntity.ok(response);

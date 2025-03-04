@@ -36,7 +36,8 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Błąd podczas zapisu użytkownika", e);
         }
     }
-    public void delete(String id){
+
+    public void delete(String id) {
 //        if(!userRepository.existsById(id)){
 //            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nie znaleziono użytkownika");
 //        }
@@ -47,6 +48,7 @@ public class UserService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Błąd podczas usuwania użytkownika", e);
         }
     }
+
     public UserModel getUserById(String id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User with ID " + id + " not found"));

@@ -10,21 +10,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
+
 @Document(collection = "scraps")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ScrapModel {
-
     @Id
     private String id;
-
-    @NotBlank(message = "Title cannot be empty")
+    @NotBlank(message = "Title cant be empty")
     private String title;
+    @NotBlank(message = "Source cant be empty")
+    private String source;
+    @NotBlank(message = "Link cant be empty")
+    private String link;
 
-    @NotBlank(message = "Description cannot be empty")
-    private String description;
-
-    @NotNull(message = "End date cannot be empty")
-    private LocalDateTime endDate;
+    private String image;
+    @NotNull(message = "Date cant be empty")
+    private LocalDateTime date;
 }

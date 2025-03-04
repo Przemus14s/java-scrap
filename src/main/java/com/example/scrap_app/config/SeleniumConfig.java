@@ -7,22 +7,21 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 public class SeleniumConfig {
 
     @Bean
-    public WebDriver webDriver(){
+    public WebDriver webDriver() {
 
         FirefoxOptions options = new FirefoxOptions();
         options.addArguments("--headless");
         options.addArguments("--disable-gpu");
 
         WebDriverManager.firefoxdriver().setup();
-        WebDriver driver = new FirefoxDriver(options);
+        FirefoxDriver driver = new FirefoxDriver(options);
 
         return driver;
     }
+
 }
