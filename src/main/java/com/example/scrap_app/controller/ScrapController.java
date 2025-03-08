@@ -1,5 +1,5 @@
 package com.example.scrap_app.controller;
-
+import com.example.scrap_app.model.ScrapModel;
 import com.example.scrap_app.service.ScrapService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,18 +18,18 @@ public class ScrapController {
     ScrapService scrapService;
 
     @GetMapping("/get-all")
-    ResponseEntity<Map<String, Object>> getAll() {
-        List<String> titles = scrapService.scrapAll();
+    public ResponseEntity<Map<String, Object>> getAll() {
+        List<ScrapModel> data = scrapService.getAll();
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Scrap successfully");
-        response.put("code", "200");
-        response.put("data", titles);
+        response.put("code","200");
+        response.put("data", data);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/get-by-title")
-    ResponseEntity<Map<String, Object>> getByTitle(@Valid @RequestBody Map<String, String> body) {
+    public ResponseEntity<Map<String, Object>> getByTitle(@Valid @RequestBody Map<String,String> body) {
 
         String query = body.get("query");
 
@@ -37,8 +37,20 @@ public class ScrapController {
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Scrap successfully");
-        response.put("code", "200");
+        response.put("code","200");
         response.put("data", elements);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map<String, Object>> deleteNews(@PathVariable String id) {
+
+        String deleted = scrapService.deleteNews(id);
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Deleted");
+        response.put("code","200");
+        response.put("data", deleted);
 
         return ResponseEntity.ok(response);
     }

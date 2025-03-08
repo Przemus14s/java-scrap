@@ -15,6 +15,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -23,6 +24,35 @@ public class ScrapService {
     @Autowired
     private ScrapRepository scrapRepository;
     private WebDriver driver;
+
+    public List<ScrapModel> getAll() {
+
+        List data = new ArrayList();
+
+        try {
+            data = scrapRepository.findAll();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return data;
+    }
+
+    public String deleteNews(String id) {
+        try {
+
+            Optional<ScrapModel> object = scrapRepository.findById(id);
+            if(object.isPresent()) {
+                scrapRepository.delete(object.get());
+                return "Dokument o ID" + id + " został usunięty";
+            } else {
+                return "Dokument " + id + " nie istnieje";
+            }
+
+        } catch (Exception e) {
+            return "Błąd " + e.getMessage();
+        }
+    }
 
     private List<WebElement> getFromOnet() {
         driver = new SeleniumConfig().webDriver();
@@ -59,8 +89,7 @@ public class ScrapService {
                 try {
                     WebElement imageElement = element.findElement(By.tagName("img"));
                     image = imageElement.getAttribute("src");
-                } catch (Exception ignored) {
-                }
+                } catch (Exception ignored) {}
 
 
                 if (titleText.toLowerCase().contains(query.toLowerCase())) {
@@ -83,7 +112,7 @@ public class ScrapService {
             System.out.println(e.getMessage());
         } finally {
             driver.quit();
-            System.out.println("zamykam");
+            System.out.println("Closing...");
         }
 
         return results;
@@ -105,7 +134,7 @@ public class ScrapService {
             System.out.println(e.getMessage());
         } finally {
             driver.quit();
-            System.out.println("zamykam");
+            System.out.println("Closing...");
         }
 
         return allTitles;

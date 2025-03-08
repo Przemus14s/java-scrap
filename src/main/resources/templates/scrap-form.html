@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Wiadomości</title>
+</head>
+<body>
+<h2>Dodaj wiadomości</h2>
+<form id="newsForm">
+    <label for="query">Wprowadź poszukiwaną treść</label>
+    <input type="text" id="query" name="query" required>
+
+    <button type="submit">Search</button>
+</form>
+
+<p id="loading" style="display:none;">Pobieranie danych...</p>
+
+<h3>Wynik:</h3>
+<pre id="result">
+
+</pre>
+
+<script src="/js/send-query.js"></script>
+</body>
+</html>

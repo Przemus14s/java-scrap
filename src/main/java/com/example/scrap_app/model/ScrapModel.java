@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
-
 @Document(collection = "scraps")
 @Data
 @NoArgsConstructor
@@ -24,7 +23,6 @@ public class ScrapModel {
     private String source;
     @NotBlank(message = "Link cant be empty")
     private String link;
-
     private String image;
     @NotNull(message = "Date cant be empty")
     private LocalDateTime date;

@@ -15,8 +15,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Map<String, String>> handleUserNotFoundException(UserNotFoundException ex) {
-        Map<String, String> response = new HashMap<>();
+    public ResponseEntity<Map<String,String>> handleUserNotFoundException(UserNotFoundException ex) {
+        Map<String,String> response = new HashMap<>();
 
         response.put("message", "Użytkownik o podanym ID nie istnieje");
         response.put("error", "User not found");
@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Map<String, Object>> handleGlobalException(Exception ex) {
-        Map<String, Object> response = new HashMap<>();
+        Map<String,Object> response = new HashMap<>();
 
         response.put("message", "Coś poszło nie tak. Skontaktuj się z administratorem");
         response.put("error", ex.getMessage());
