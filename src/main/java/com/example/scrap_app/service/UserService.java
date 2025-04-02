@@ -1,6 +1,5 @@
 package com.example.scrap_app.service;
 
-
 import com.example.scrap_app.exception.UserNotFoundException;
 import com.example.scrap_app.model.UserModel;
 import com.example.scrap_app.repository.UserRepository;
@@ -38,9 +37,6 @@ public class UserService {
     }
 
     public void delete(String id) {
-//        if(!userRepository.existsById(id)){
-//            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nie znaleziono użytkownika");
-//        }
         userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Użytkownik z ID:" + id + " nie istnieje"));
         try {
             userRepository.deleteById(id);

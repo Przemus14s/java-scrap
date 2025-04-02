@@ -2,14 +2,13 @@ package com.example.scrap_app.views;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,8 +38,7 @@ public class ViewController {
     }
 
     @GetMapping("/news")
-    public String news(Model model) {
-
+    public String getScraps(Model model) {
         String apiUrl = "http://localhost:8080/api/scrap/get-all";
 
         ResponseEntity<Map<String,Object>> response = restTemplate.exchange(
@@ -54,26 +52,31 @@ public class ViewController {
 
         model.addAttribute("scraps",scraps);
 
-
         return "news";
     }
 
-    @GetMapping("/add-news")
-    public String addNewsForm() {
+    @GetMapping("/scrap-form")
+    public String scrapForm(Model model) {
         return "scrap-form";
     }
 
+    @PostMapping("/scrap-operation")
+    public String scrapByBackend(@RequestParam String query) {
+        String apiUrl = "http://localhost:8080/api/scrap/get-by-title";
 
-    @GetMapping("/delete/{id}")
-    public String deleteNews(@PathVariable String id) {
-        String apiUrl = "http://localhost:8080/api/scrap/delete/" + id;
+        Map<String,String> requestBody = new HashMap<>();
+        requestBody.put("query",query);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String,String>> requestEntity = new HttpEntity<>(requestBody,headers);
+
         ResponseEntity<Map<String,Object>> response = restTemplate.exchange(
                 apiUrl,
-                HttpMethod.DELETE,
-                null,
+                HttpMethod.POST,
+                requestEntity,
                 new ParameterizedTypeReference<Map<String, Object>>() {}
         );
-        return "redirect:/news";
+        return "redirect:/";
     }
-
 }

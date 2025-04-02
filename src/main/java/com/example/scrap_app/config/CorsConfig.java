@@ -12,11 +12,11 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/api/**")  // Zezwól na żądania dla ścieżek zaczynających się od /api/
-                        .allowedOrigins("http://127.0.0.1:5500") // Domena, z której zezwalamy na żądania
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Dozwolone metody
-                        .allowedHeaders("*") // Dozwolone nagłówki
-                        .allowCredentials(true); // Zezwalaj na ciasteczka/autoryzację
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:5177")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }

@@ -1,4 +1,4 @@
 function customClick(){
-alert("kliknięto");
-consol.log("klikklik");
+         alert("kliknięto");
+         consol.log("klikklik");
 }

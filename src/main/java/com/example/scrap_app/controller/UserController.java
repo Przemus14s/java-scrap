@@ -1,6 +1,5 @@
 package com.example.scrap_app.controller;
 
-
 import com.example.scrap_app.model.UserModel;
 import com.example.scrap_app.service.UserService;
 import jakarta.validation.Valid;
