@@ -53,13 +53,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> user, HttpServletResponse response) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> user, HttpServletResponse response) {
         String username = user.get("username");
         String password = user.get("password");
+        Map<String, Object> resMap = new HashMap<>();
 
         Optional<UserModel> userData = authRepository.findByUsername(username);
         if (userData.isEmpty() || !passwordEncoder.matches(password, userData.get().getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Invalid credentials"));
+            resMap.put("message", "Błędny email lub hasło");
+            resMap.put("code", "400");
+            resMap.put("status", "error");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resMap);
         }
 
         String token = Jwts.builder()
@@ -79,8 +83,12 @@ public class AuthController {
                 .build();
 
         response.addHeader("Set-Cookie", cookie.toString());
+        resMap.put("message", "Pomyślnie zalogowano");
+        resMap.put("code", "200");
+        resMap.put("status", "success");
+        resMap.put("token", token);
 
-        return ResponseEntity.ok(Map.of("token", token));
+        return ResponseEntity.ok(resMap);
     }
 
 
